@@ -38,14 +38,14 @@ public class XE_Color {
 		return color.getBlue();
 	}
 	
-	public int getRf(){
-		return color.getRed()/255;
+	public float getRf(){
+		return (float)color.getRed()/255f;
 	}
-	public int getGf(){
-		return color.getGreen()/255;
+	public float getGf(){
+		return (float)color.getGreen()/255f;
 	}
-	public int getBf(){
-		return color.getBlue()/255;
+	public float getBf(){
+		return (float)color.getBlue()/255f;
 	}
 	
 	public int getAlpha(){

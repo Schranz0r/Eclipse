@@ -6,6 +6,7 @@ import XE_Core.XE_Color;
 public class XE_Circle extends XE_Object2D{
 	
 	private int radius;
+	private boolean need_update = false;
 	private XE_Color center_color = new XE_Color(255,255,255,100);
 	private XE_Color outer_color = new XE_Color(255,255,255,100);
 	
@@ -14,7 +15,11 @@ public class XE_Circle extends XE_Object2D{
 		this.radius = radius;
 		this.width = radius*2;
 		this.height = radius*2;
+		// default overlay Color
 		color = new XE_Color(255, 255, 255, 100);
+		
+		// we create it so we need a update/create the object!
+		need_update = true;
 		createListObject();
 	}
 	
@@ -28,6 +33,8 @@ public class XE_Circle extends XE_Object2D{
 
 	public void setCenterColor(XE_Color center_color) {
 		this.center_color = center_color;
+		need_update= true;
+		createListObject();
 	}
 
 	public XE_Color getOuterCcolor() {
@@ -35,32 +42,41 @@ public class XE_Circle extends XE_Object2D{
 	}
 
 	public void setOuterColor(XE_Color outer_color) {
-		this.outer_color = outer_color;
+		this.outer_color = outer_color;	
+		need_update= true;
+		createListObject();
 	}
-
+	
+	public void setColor(XE_Color circ_color){
+		setCenterColor(circ_color);
+		setOuterColor(circ_color);
+		need_update= true;
+		createListObject();
+	}
+	
 	@Override
 	public void createListObject(){
-		// create a new List to compile
-		glNewList(listHandle, GL_COMPILE);	
-		glBegin(GL_TRIANGLE_FAN);
-		
-		// centerpoint of the circle
-		glColor4f(center_color.getRf(), center_color.getGf(), center_color.getBf(), center_color.getAlphaf());
-		glVertex2f(radius, radius);
-		
-		glColor4f(outer_color.getRf(), outer_color.getGf(), outer_color.getBf(), outer_color.getAlphaf());
-		
-			for(int i = 0; i<368; i+=8){
-				glVertex2f(radius+(float)Math.sin(Math.toRadians(i))*radius,radius+(float)Math.cos(Math.toRadians(i))*radius);
-			}
+		if(need_update){
+			// create a new List to compile
+			glNewList(listHandle, GL_COMPILE);	
+			glBegin(GL_TRIANGLE_FAN);
 			
-		// end drawing
-		glEnd();
-		
-		// end the list 
-		glEndList();		
-		
-		
+			// centerpoint of the circle
+			glColor4f(center_color.getRf(), center_color.getGf(), center_color.getBf(), center_color.getAlphaf());
+			glVertex2f(radius, radius);
+			
+			glColor4f(outer_color.getRf(), outer_color.getGf(), outer_color.getBf(), outer_color.getAlphaf());
+			
+				for(int i = 0; i<368; i+=8){
+					glVertex2f(radius+(float)Math.sin(Math.toRadians(i))*radius,radius+(float)Math.cos(Math.toRadians(i))*radius);
+				}
+				
+			// end drawing
+			glEnd();
+			
+			// end the list 
+			glEndList();		
+		}
 	}
 	
 	@Override

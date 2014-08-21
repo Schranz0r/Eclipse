@@ -2,6 +2,8 @@ package game;
 
 
 
+import java.util.Random;
+
 import org.lwjgl.Sys;
 import org.newdawn.slick.util.Log;
 
@@ -12,6 +14,7 @@ import XE_2D.XE_Image;
 import XE_Core.XE_Color;
 import XE_Core.XE_Display;
 import XE_Core.XE_FPS;
+import XE_Core.XE_Mouse;
 
 @SuppressWarnings("unused")
 public class game {
@@ -26,6 +29,8 @@ public class game {
 	public static XE_Image img2;
 	
 	public static XE_Circle cir;
+	
+	public static Random rnd = new Random();
 	
 	public static float scale = 1f;
 	
@@ -52,7 +57,7 @@ public class game {
 		XE_Display.setInterval(FRAMERATE);
 		XE_Display.setTitle(TITLE);
 		XE_Display.setIcon("res/icons/icon16.png", "res/icons/icon32.png");
-		XE_CollisionRect.showDebug();
+		//XE_CollisionRect.showDebug();
 		
 		
 		img = new XE_Image();
@@ -64,8 +69,7 @@ public class game {
 		img2.enableCollision();
 		
 		cir = new XE_Circle();
-		cir.setCenterColor(new XE_Color(0,0,0,100));
-		cir.setOuterColor(new XE_Color(0, 0, 0, 0));
+		cir.setOuterColor(new XE_Color(255,255,255,1));
 		cir.setRadius(25);
 		cir.enableCollision();
 		
@@ -94,10 +98,8 @@ public class game {
 		img.draw(20, 20);
 		img2.draw(200, 200);
 		
+		cir.setCenterColor(new XE_Color(rnd.nextInt(255),rnd.nextInt(255),rnd.nextInt(255),100));
 		cir.draw(0, 0);
-		
-		if(img.isCollision(cir))
-			Log.debug("HOLY SHIT!");
 		
 	}
 	
