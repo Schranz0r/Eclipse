@@ -1,0 +1,37 @@
+package Game;
+
+import org.newdawn.slick.Color;
+
+import X_Engine.X2D.X_Image;
+import X_Engine.X2D.X_Rect;
+import X_Engine.XCore.X_Display;
+
+public class Main {
+	
+	public static void main(String[] args){
+		
+		X_Display display = new X_Display();
+		display.SetDisplay(800, 600, "X-Engine 0.1");
+		display.SetDisplayTo2D();
+		
+		X_Image img = new X_Image();
+		img.LoadTexture("res/test.png");
+		
+		X_Rect rec = new X_Rect();
+		rec.setColor(Color.blue);
+		rec.setSizeX(100);
+		rec.setSizeY(50);
+		
+		
+		while(!display.isCloseRequested()){
+			display.clear();
+			
+			img.Draw(10, 10);
+			rec.Draw(100, 100);
+			
+			display.update();
+		}
+		
+	}
+	
+}

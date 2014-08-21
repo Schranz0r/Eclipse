@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;test2.png&apos; to &apos;res&apos;&#x0D;&#x0A;- Original project: &apos;Copy of X_Engine&apos;&#x0D;&#x0A;- Destination element: &apos;res&apos;&#x0D;&#x0A;- Original element: &apos;test2.png&apos;" description="Copy file" element1="res/test2.png" files="1" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1405959123530" target="/XE/res" units="0" version="1.0"/>
+</session>

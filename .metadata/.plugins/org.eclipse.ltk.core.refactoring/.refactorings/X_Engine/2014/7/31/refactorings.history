@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring accessors="true" comment="Delete element from project &apos;X_Engine&apos;&#x0D;&#x0A;- Original project: &apos;X_Engine&apos;&#x0D;&#x0A;- Original element: &apos;X_Engine.X2D.X_Image_Old.java&apos;" description="Delete element" element1="/src&lt;X_Engine.X2D{X_Image_Old.java" elements="1" flags="589830" id="org.eclipse.jdt.ui.delete" resources="0" stamp="1406728617111" subPackages="false" version="1.0"/>
+</session>

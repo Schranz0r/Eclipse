@@ -1,0 +1,35 @@
+package XE_2D;
+
+import org.lwjgl.util.Rectangle;
+
+public class XE_CollisionRect {
+	private Rectangle rect = new Rectangle();
+	
+	public void setBounds(int x, int y, int width, int height){
+		rect.setBounds(x, y, width, height);
+	}
+	
+	public boolean isCollision(XE_Object2D obj){
+		if(rect.intersects( obj.getRect() ) )
+			return true;
+		
+		return false;		
+	}
+	
+	public boolean isCollision(XE_CollisionRect obj){
+		if(rect.intersects( obj.rect ) )
+			return true;
+		
+		return false;		
+	}
+
+	public boolean isCollision(int x, int y, int width, int height){
+		Rectangle obj = new Rectangle(x, y, width, height);
+		
+		if(rect.intersects( obj ) )
+			return true;
+		
+		return false;		
+	}
+	
+}

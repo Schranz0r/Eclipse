@@ -1,0 +1,73 @@
+package Game;
+
+import org.lwjgl.input.Keyboard;
+
+import Starbase.SB_Layer;
+import Starbase.SB_World;
+import XE_Core.XE_Display;
+import XE_Core.XE_FPS;
+import XE_Core.XE_Timer;
+
+
+public class Main {
+	
+	public static int WIDTH = 800;
+	public static int HEIGHT = 600;
+	
+	public static void main(String[] args){
+		
+		// Initcode here
+		// set 2D to standard !
+		XE_Display.init(WIDTH, HEIGHT);
+		
+		
+		SB_World world = new SB_World(30, 30);
+		
+		
+		int camX = 0, camY = 0;
+
+		XE_Timer time = new XE_Timer();
+		
+		float speed = 0.15f;
+		
+		// Maincode here
+		while(!XE_Display.isCloseRequested()){			
+			int delta = time.getDelta();
+			
+			if(Keyboard.isKeyDown(Keyboard.KEY_A)){
+				camX +=(int)(delta*speed);
+			}
+			if(Keyboard.isKeyDown(Keyboard.KEY_D)){
+				camX -=(int)(delta*speed);
+			}			
+			if(Keyboard.isKeyDown(Keyboard.KEY_S)){
+				camY -=(int)(delta*speed);
+			}
+			if(Keyboard.isKeyDown(Keyboard.KEY_W)){
+				camY +=(int)(delta*speed);
+			}				
+			
+			XE_Display.clear();
+			//XE_Display.Make3D(80, .1f, 1000f);
+				// draw 3D here
+			XE_Display.Make2D();
+			
+				//draw 2D here!
+				world.draw(camX, camY);
+				
+			// update the FPS
+			XE_FPS.updateFPS();
+			
+			// set / update the title
+			XE_Display.setTitle("XE - The Gameengine v0.95 ALPHA  ---  FPS: "+XE_FPS.getFPS());
+			
+			// update the display
+			XE_Display.update();
+			
+		}
+		// destroy the display
+		XE_Display.destroy();
+		
+	}
+	
+}

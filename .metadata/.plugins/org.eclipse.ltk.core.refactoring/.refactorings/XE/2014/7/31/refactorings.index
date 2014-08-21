@@ -1,0 +1,24 @@
+1406581057368	Delete element
+1406581059232	Delete element
+1406581061899	Delete element
+1406582611267	Copy compilation unit
+1406583319562	Rename type 'XE_Object2D'
+1406583327951	Rename type 'XE_Object2D_v2'
+1406583538576	Copy compilation unit
+1406584306955	Delete element
+1406584320728	Rename type 'XE_Object2D_DisplayList'
+1406639236524	Delete element
+1406641566294	Encapsulate field 'texture'
+1406652540405	Rename type 'XE_Color'
+1406654809697	Copy compilation unit
+1406663444016	Delete element
+1406663447714	Delete element
+1406823977131	Delete element
+1406826493861	Move package
+1406828901717	Encapsulate field 'camX'
+1406828912847	Encapsulate field 'camY'
+1406828916837	Encapsulate field 'camZ'
+1406828919998	Encapsulate field 'lookAtX'
+1406828923628	Encapsulate field 'lookAtY'
+1406828927063	Encapsulate field 'lookAtZ'
+1406837897423	Rename type 'XE_Axis'

@@ -1,0 +1,103 @@
+package XE_2D;
+
+import static org.lwjgl.opengl.GL11.*;
+
+import javax.swing.DebugGraphics;
+
+import org.lwjgl.util.Rectangle;
+import org.newdawn.slick.util.Log;
+
+public class XE_CollisionRect {
+	private Rectangle rect = new Rectangle();
+	private static boolean isDebug = false;
+	
+	public void setBounds(int x, int y, int width, int height){
+		rect.setBounds(x, y, width, height);
+	}
+	
+	public void setPosition(int x, int y){
+		rect.setX(x);
+		rect.setY(y);
+	}
+	
+	public boolean isCollision(XE_Object2D obj){
+		if(isDebug){
+			glLineWidth(1f);
+			glBegin(GL_LINES);
+				//rect1
+					glColor3f(1, 0, 0);
+					glVertex2i(rect.getX(), rect.getY());
+					glVertex2i(rect.getX()+rect.getWidth(), rect.getY());
+					
+					glVertex2i(rect.getX()+rect.getWidth(), rect.getY());
+					glVertex2i(rect.getX()+rect.getWidth(), rect.getY()-rect.getHeight());
+					
+					glVertex2i(rect.getX()+rect.getWidth(), rect.getY()-rect.getHeight());
+					glVertex2i(rect.getX(), rect.getY()-rect.getHeight());
+					
+					glVertex2i(rect.getX(), rect.getY()-rect.getHeight());
+					glVertex2i(rect.getX(), rect.getY());
+				//rect2
+			glEnd();
+			
+		}
+		
+		if(rect.intersects( obj.getRect() ) )
+			return true;
+		
+		return false;		
+	}
+	
+	public boolean isCollision(XE_CollisionRect obj){
+		if(isDebug){
+			
+			int height = rect.getHeight();
+			int width = rect.getWidth();
+			Log.debug("W: "+width+" h: "+height);
+			glPushMatrix();
+			
+				glTranslatef(10, 10, 0);
+				glBegin(GL_LINES);
+					//rect1
+						glColor3f(1, 0, 0);
+						glVertex2i(0, 0);
+						glVertex2i(width, 0);
+						
+						glVertex2i(width, 0);
+						glVertex2i(width, -height);
+					//rect2
+				glEnd();
+			glPopMatrix();
+		}		
+		
+		if(rect.intersects( obj.rect ) )
+			return true;
+		
+		return false;		
+	}
+
+	public boolean isCollision(int x, int y, int width, int height){
+		Rectangle obj = new Rectangle(x, y, width, height);
+		
+		if(rect.intersects( obj ) )
+			return true;
+		
+		return false;		
+	}
+	
+	public static boolean isCollision(int x1, int y1, int w1, int h1, int x2, int y2, int w2, int h2){
+		Rectangle obj1 = new Rectangle(x1, y1, w1, h1);
+		Rectangle obj2 = new Rectangle(x2, y2, w2, h2);
+		
+		
+		if(obj1.intersects( obj2 ) )
+			return true;
+		
+		return false;		
+	}
+	
+	public static void showDebug(){
+		isDebug = true;
+	}
+	
+}

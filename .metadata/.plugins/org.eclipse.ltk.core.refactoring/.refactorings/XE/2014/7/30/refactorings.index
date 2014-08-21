@@ -1,0 +1,7 @@
+1405959154315	Encapsulate field 'texturename'
+1405975505096	Encapsulate field 'isTextured'
+1405976241111	Delete element
+1405976545008	Encapsulate field 'FOV'
+1405976559696	Encapsulate field 'ZNEAR'
+1405976568590	Encapsulate field 'ZFAR'
+1405979024411	Encapsulate field 'name'

@@ -1,0 +1,84 @@
+package Game;
+
+
+import org.newdawn.slick.util.Log;
+
+import X_Engine.X2D.X_Image;
+import X_Engine.X2D.X_Rect;
+import X_Engine.XCore.X_Color;
+import X_Engine.XCore.X_Display;
+import X_Engine.XCore.X_FPS;
+import X_Engine.XCore.X_Timer;
+import X_Engine.XInput.X_Mouse;
+import X_Engine.XSound.X_Sound;
+
+
+public class Main {
+	
+
+	public static void main(String[] args){
+		
+		int WIDTH = 800;
+		int HEIGHT = 600;
+		String TITLE = "X-Engine 0.6";
+			
+		X_Display display = new X_Display();
+		display.setDisplay(WIDTH, HEIGHT, TITLE);
+		display.setDisplayTo2D();
+		
+		X_Color col = new X_Color();
+		col.setColor(0, 0, 255);	
+		
+		X_Image img = new X_Image();
+		img.loadTexture("res/items.png");
+		
+		X_Image img2 = new X_Image();
+		img2.loadTexture("res/test3.png");
+		
+		X_Rect rec = new X_Rect();
+		rec.setColor(col);
+		rec.setSize(100,50);
+		
+		X_Timer time = new X_Timer();
+		
+		X_Sound snd = new X_Sound();
+		snd.loadWavSound("res/glass08.wav");
+		
+		while(!display.isCloseRequested()){
+			display.clear();
+			
+			int delta = time.getDelta();
+			
+
+			img.draw(10, 10);
+			img2.draw(X_Mouse.getX(), X_Mouse.getY());
+			rec.draw(100, 100);
+			
+			
+			if(img2.isCollision(img)){
+				Log.debug("X: "+ img2.rect.x + " Y: "+img2.rect.y);
+				Log.debug("SX: "+ img2.rect.width + " SY: "+img2.rect.height);
+			}
+			
+			if(rec.isMouseOver()){
+				Log.info("DELTATIME: "+delta);
+				rec.setColor(255, 0, 0);
+				
+				if(!snd.isPlaying())
+					snd.playSound(1.0f, 0.1f, false);
+			
+			}else{
+				
+				rec.setColor(0, 255, 0);
+			}
+			
+			
+			display.setTitle("X_Engine alpha 0.5 - FPS: "+X_FPS.getFPS());
+			display.update();
+		}
+		
+		display.closeDisplay();
+		
+	}	
+	
+}

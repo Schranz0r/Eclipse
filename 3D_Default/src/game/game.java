@@ -1,0 +1,93 @@
+package game;
+
+import org.lwjgl.Sys;
+import XE_2D.XE_Image;
+import XE_3D.XE_Axes;
+import XE_3D.XE_Camera;
+import XE_Core.XE_Display;
+import XE_Core.XE_FPS;
+
+
+public class game {
+	
+	// CORE VARIABLES
+	public static final String TITLE = "3D - Default v1.0";
+	public static int WIDTH 	= 800;
+	public static int HEIGHT 	= 600;
+	public static int MAXFRAMES = 60;
+	
+	// 3D VARIABLES
+	public static int FOV = 45;
+	public static float ZNEAR= 0.3f;
+	public static float ZFAR= 1000f;
+	public static XE_Camera CAM = new XE_Camera();
+	public static XE_Axes AXE;
+	
+	public static XE_Image icon;
+	
+	public static void main(String[] args){
+		
+		try {
+			// init the game
+			init();
+			// run the mainloop
+			run();
+		} catch (Exception e) {
+			e.printStackTrace();
+			Sys.alert(TITLE, "An error occured and the game will exit.");
+		} finally {
+			// clear all up on error
+			clear();
+		}
+		
+	}
+	
+	public static void init() throws Exception{
+		XE_Display.init(WIDTH, HEIGHT);
+		XE_Display.enableVSYNC(false);
+		XE_Display.setIcon("res/icons/icon16.png", "res/icons/icon32.png");
+		XE_Display.setTitle(TITLE);
+		
+		
+		// setup the camera to the given position
+		CAM.SetCamera(0, 0, -10, 0, 0, 0);
+		AXE = new XE_Axes(1);
+
+	}
+	
+	public static void run(){
+		while(!XE_Display.isCloseRequested()){
+			XE_Display.clear();
+			XE_Display.Make3D(FOV, ZNEAR, ZFAR);					
+			render3D();
+			XE_Display.Make2D();
+			render2D();
+			update();
+		}
+		clear();
+	}
+	
+	public static void input(){
+
+	}
+	
+	public static void render3D(){
+		// draw 3D-stuff here!
+		AXE.draw(0, 0, 0);
+	}
+	public static void render2D(){
+		// draw 2D-stuff here!
+	}
+		
+	public static void update(){	
+		XE_FPS.updateFPS();
+		XE_Display.setTitle(TITLE+" - FPS: "+XE_FPS.getFPS());
+		XE_Display.update();
+		XE_Display.limitFPS(MAXFRAMES);
+	}
+	
+	public static void clear(){
+		XE_Display.destroy();
+	}
+	
+}

@@ -1,0 +1,207 @@
+package XE_2D;
+
+import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL12.*;
+
+import org.lwjgl.util.Rectangle;
+
+import XE_Core.XE_Color;
+
+public class XE_Object2D {
+	
+	// create a blank imageloader 
+	protected XE_ImageLoader imageloader = null;
+	
+	// set position and size
+	private int posx, posy;
+	protected int width;
+
+	protected int height;
+	
+	// Misc. variables
+	protected boolean isTextured;
+	
+	// create Listhandle
+	protected int listHandle = glGenLists(1);
+	
+	// set default color = White - 100% opaque
+	private XE_Color color = new XE_Color(255, 255, 255, 100);
+	
+	// rect for collision detection
+	private boolean enableCollision = false;
+	private Rectangle rect = new Rectangle();
+	
+	
+	public void loadImage(String file){
+		
+		// create a new textureload instance
+		imageloader = new XE_ImageLoader();
+		
+		// load the texture in the loader
+		imageloader.loadTexture(file);
+		
+		// set isTextured to true
+		this.isTextured = true;
+		
+		// set Width and Height to the size of the image 
+		this.width = imageloader.texture.getImageWidth();
+		this.height = imageloader.texture.getImageHeight();
+		
+		// create the Image on a ListObject 
+		createListObject();
+	}
+	
+	public void enableCollision(){
+		rect.setBounds(0, 0, width, height);
+		this.enableCollision = true;
+	}
+	
+	public void disableCollision(){
+		this.enableCollision = false;
+	}	
+	
+	
+	public void draw(int x, int y){
+		
+		// set position variables, we need it later on for collisions and stuff
+		this.posx = x;
+		this.posy = y;
+		
+		// is collision enabled then
+		// set position of the rectangle for collision !
+		if(enableCollision){
+			rect.setX(x);
+			rect.setY(y);
+		}
+		
+		if(isTextured){
+			// enable 2D textures
+			glEnable(GL_TEXTURE_2D);
+			// bind the texture
+			imageloader.texture.bind();
+			// use linear filetring
+			glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST); 
+			glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+			// clamp to edge
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		}else{
+			// there is no texture so we don't need the textureflag....
+			glDisable(GL_TEXTURE_2D);
+		}
+		
+		
+		// new matrix to translate
+		glPushMatrix();
+			
+			// move object to position 
+			glTranslatef(posx, posy, 0);
+			
+			// set color
+			glColor4f(color.getR(), color.getG(), color.getB(), color.getAlphaf());			
+			
+			// draw the ListObject
+			glCallList(listHandle);
+			
+		// back to normal matrix	
+		glPopMatrix();
+		
+		// disable texturing again, maybe we want to draw a solid?!
+		glDisable(GL_TEXTURE_2D);
+	}
+	
+	
+	public void createListObject(){
+		
+		// create a new List to compile
+		glNewList(listHandle, GL_COMPILE);
+		
+		// begin drawing to the list
+		glBegin(GL_QUADS);
+		
+			// draw the vertices
+			if(isTextured)
+				glTexCoord2f(0f, 0f);
+			glVertex2i(0, 0);			// top-left
+			
+			if(isTextured)
+				glTexCoord2f(imageloader.texture.getWidth(), 0f);
+			glVertex2i(width, 0);		// top-right
+			
+			if(isTextured)
+				glTexCoord2f(imageloader.texture.getWidth(), imageloader.texture.getHeight());
+			glVertex2i(width, height);	// bottom-right
+			
+			if(isTextured)
+				glTexCoord2f(0f, imageloader.texture.getHeight());
+			glVertex2i(0, height);		// bottom-left
+			
+		// end drawing
+		glEnd();
+		
+		// end the list 
+		glEndList();
+		
+	}
+
+	
+	public XE_Color getColor() {
+		return color;
+	}
+
+
+	public void setColor(XE_Color color) {
+		this.color = color;
+	}
+	
+	public void setAlpha(int alpha){
+		this.color.setAlpha(alpha);
+	}
+	
+	
+	public int getPosx() {
+		return posx;
+	}
+
+
+	public void setPosx(int posx) {
+		this.posx = posx;
+	}
+
+
+	public int getPosy() {
+		return posy;
+	}
+
+
+	public void setPosy(int posy) {
+		this.posy = posy;
+	}
+
+
+	public int getWidth() {
+		return width;
+	}
+
+
+	public void setWidth(int width) {
+		this.width = width;
+	}
+
+
+	public int getHeight() {
+		return height;
+	}
+
+
+	public void setHeight(int height) {
+		this.height = height;
+	}
+	
+	public boolean isCollision(XE_Object2D obj){
+		if(rect.intersects(obj.rect))
+			return true;
+		
+		return false;		
+	}
+}
