@@ -81,7 +81,7 @@ public class XE_Object2D {
 		// is collision enabled then
 		// set position of the rectangle for collision !
 		if(enableCollision){
-			getRect().setPosition(x-handleX, y-handleY);
+			getRect().setPosition(x, y);
 		}
 		
 		if(isTextured){

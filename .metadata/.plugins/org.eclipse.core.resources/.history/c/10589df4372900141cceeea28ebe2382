@@ -16,16 +16,8 @@ public class XE_Object2D {
 	protected int height;
 	protected int handleX;
 	protected int handleY;
-	protected float rotation;
+	protected int rotation;
 	
-	public float getRotation() {
-		return rotation;
-	}
-
-	public void setRotation(float rotation) {
-		this.rotation = rotation;
-	}
-
 	// Misc. variables
 	protected boolean isTextured;
 	
@@ -81,7 +73,7 @@ public class XE_Object2D {
 		// is collision enabled then
 		// set position of the rectangle for collision !
 		if(enableCollision){
-			getRect().setPosition(x-handleX, y-handleY);
+			getRect().setPosition(x, y);
 		}
 		
 		if(isTextured){
@@ -102,18 +94,14 @@ public class XE_Object2D {
 		
 		
 		// new matrix to translate
-		
 		glPushMatrix();
-			
-			
+			//rotate if we need
+			glRotatef(rotation, 0, 0, 1);
 			// move object to position 
 			glTranslatef(posx, posy, 0);
-
-			// set color
-			glColor4f(color.getR(), color.getG(), color.getB(), color.getAlphaf());		
 			
-			//rotate if we need
-			glRotatef(rotation, 0, 0, 1f);		
+			// set color
+			glColor4f(color.getR(), color.getG(), color.getB(), color.getAlphaf());			
 			
 			// draw the ListObject
 			glCallList(listHandle);
@@ -136,8 +124,8 @@ public class XE_Object2D {
 		
 			// draw the vertices
 			if(isTextured)
-				glTexCoord2f(0f, 0f);
-			glVertex2f(0f-handleX, 0f-handleY);			// top-left
+				glTexCoord2f(0f-handleX, 0f-handleY);
+			glVertex2f(0, 0);			// top-left
 			
 			if(isTextured)
 				glTexCoord2f(imageloader.texture.getWidth(), 0f);

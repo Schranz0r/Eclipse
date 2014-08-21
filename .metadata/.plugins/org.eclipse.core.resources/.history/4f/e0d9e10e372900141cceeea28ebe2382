@@ -9,23 +9,13 @@ public class XE_Object2D {
 	// create a blank imageloader 
 	protected XE_ImageLoader imageloader = null;
 	
-	// set position size and rotation
+	// set position and size
 	protected int posx;
+
 	protected int posy;
 	protected int width;
 	protected int height;
-	protected int handleX;
-	protected int handleY;
-	protected float rotation;
 	
-	public float getRotation() {
-		return rotation;
-	}
-
-	public void setRotation(float rotation) {
-		this.rotation = rotation;
-	}
-
 	// Misc. variables
 	protected boolean isTextured;
 	
@@ -81,7 +71,7 @@ public class XE_Object2D {
 		// is collision enabled then
 		// set position of the rectangle for collision !
 		if(enableCollision){
-			getRect().setPosition(x-handleX, y-handleY);
+			getRect().setPosition(x, y);
 		}
 		
 		if(isTextured){
@@ -102,18 +92,13 @@ public class XE_Object2D {
 		
 		
 		// new matrix to translate
-		
 		glPushMatrix();
-			
 			
 			// move object to position 
 			glTranslatef(posx, posy, 0);
-
-			// set color
-			glColor4f(color.getR(), color.getG(), color.getB(), color.getAlphaf());		
 			
-			//rotate if we need
-			glRotatef(rotation, 0, 0, 1f);		
+			// set color
+			glColor4f(color.getR(), color.getG(), color.getB(), color.getAlphaf());			
 			
 			// draw the ListObject
 			glCallList(listHandle);
@@ -137,19 +122,19 @@ public class XE_Object2D {
 			// draw the vertices
 			if(isTextured)
 				glTexCoord2f(0f, 0f);
-			glVertex2f(0f-handleX, 0f-handleY);			// top-left
+			glVertex2f(0, 0);			// top-left
 			
 			if(isTextured)
 				glTexCoord2f(imageloader.texture.getWidth(), 0f);
-			glVertex2f(-handleX+width*scale, 0f-handleY);		// top-right
+			glVertex2f(width*scale, 0);		// top-right
 			
 			if(isTextured)
 				glTexCoord2f(imageloader.texture.getWidth(), imageloader.texture.getHeight());
-			glVertex2f(-handleX+width*scale, -handleY+height*scale);	// bottom-right
+			glVertex2f(width*scale, height*scale);	// bottom-right
 			
 			if(isTextured)
 				glTexCoord2f(0f, imageloader.texture.getHeight());
-			glVertex2f(0f-handleX, -handleY+height*scale);		// bottom-left
+			glVertex2f(0, height*scale);		// bottom-left
 			
 		// end drawing
 		glEnd();
@@ -157,12 +142,6 @@ public class XE_Object2D {
 		// end the list 
 		glEndList();
 		
-	}
-	
-	
-	public void setHandle(int x, int y){
-		this.handleX = x;
-		this.handleY = y;
 	}
 	
 	public void setScale(float scale){

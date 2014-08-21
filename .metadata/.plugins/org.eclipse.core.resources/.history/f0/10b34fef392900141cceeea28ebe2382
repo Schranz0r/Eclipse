@@ -80,16 +80,16 @@ public class XE_Sprite extends XE_Object2D{
 		
 			// draw the vertices
 			glTexCoord2f(spritePosX, spritePosY);
-			glVertex2i(0-handleX, 0-handleY);			// top-left
+			glVertex2i(0, 0);			// top-left
 			
 			glTexCoord2f(spritePosX+texCoordSizeX, spritePosY);
-			glVertex2i(-handleX+tileSizeX, 0-handleY);		// top-right
+			glVertex2i(tileSizeX, 0);		// top-right
 			
 			glTexCoord2f(spritePosX+texCoordSizeX, spritePosY+texCoordSizeY);
-			glVertex2i(-handleX+tileSizeX, -handleY+tileSizeY);	// bottom-right
+			glVertex2i(tileSizeX, tileSizeY);	// bottom-right
 			
 			glTexCoord2f(spritePosX, spritePosY+texCoordSizeY);
-			glVertex2i(0-handleX, -handleY+tileSizeY);		// bottom-left
+			glVertex2i(0, tileSizeY);		// bottom-left
 			
 		// end drawing
 		glEnd();

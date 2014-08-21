@@ -81,7 +81,7 @@ public class XE_Object2D {
 		// is collision enabled then
 		// set position of the rectangle for collision !
 		if(enableCollision){
-			getRect().setPosition(x-handleX, y-handleY);
+			getRect().setPosition(x, y);
 		}
 		
 		if(isTextured){
@@ -108,12 +108,12 @@ public class XE_Object2D {
 			
 			// move object to position 
 			glTranslatef(posx, posy, 0);
-
-			// set color
-			glColor4f(color.getR(), color.getG(), color.getB(), color.getAlphaf());		
 			
 			//rotate if we need
-			glRotatef(rotation, 0, 0, 1f);		
+			glRotatef(rotation, 0, 0, .5f);
+			
+			// set color
+			glColor4f(color.getR(), color.getG(), color.getB(), color.getAlphaf());			
 			
 			// draw the ListObject
 			glCallList(listHandle);

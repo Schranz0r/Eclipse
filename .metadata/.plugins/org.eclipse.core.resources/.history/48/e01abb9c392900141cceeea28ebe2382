@@ -99,11 +99,8 @@ public class game {
 		
 		img.setScale(scale);
 		img.draw(20, 20);
-		img2.setRotation(rotation);
+		//img2.setRotation(rotation);
 		img2.draw(200, 200);
-		
-		if(img.isCollision(img2))
-			Log.debug("HOLY SHIT!");
 		
 		cir.setCenterColor(new XE_Color(rnd.nextInt(255),rnd.nextInt(255),rnd.nextInt(255),100));
 		cir.draw(0, 0);

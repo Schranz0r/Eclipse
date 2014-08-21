@@ -59,7 +59,7 @@ public class game {
 		XE_Display.setInterval(FRAMERATE);
 		XE_Display.setTitle(TITLE);
 		XE_Display.setIcon("res/icons/icon16.png", "res/icons/icon32.png");
-		XE_CollisionRect.showDebug();
+		//XE_CollisionRect.showDebug();
 		
 		
 		img = new XE_Image();
@@ -67,7 +67,7 @@ public class game {
 		img.enableCollision();
 		
 		img2 = new XE_Image();
-		img2.setHandle(8, 8);
+		//img2.setHandle(8, 8);
 		img2.loadImage("res/icons/icon16.png");
 		img2.enableCollision();
 		
@@ -101,9 +101,6 @@ public class game {
 		img.draw(20, 20);
 		img2.setRotation(rotation);
 		img2.draw(200, 200);
-		
-		if(img.isCollision(img2))
-			Log.debug("HOLY SHIT!");
 		
 		cir.setCenterColor(new XE_Color(rnd.nextInt(255),rnd.nextInt(255),rnd.nextInt(255),100));
 		cir.draw(0, 0);

@@ -99,7 +99,7 @@ public class game {
 		
 		img.setScale(scale);
 		img.draw(20, 20);
-		img2.setRotation(rotation);
+		//img2.setRotation(rotation);
 		img2.draw(200, 200);
 		
 		if(img.isCollision(img2))
