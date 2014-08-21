@@ -1,6 +1,6 @@
 ToDo- Liste der XE_Engine
 #########################
 
-- Eine Art PolyVector einbauen für zoom... oder zoomImage und rotateImage?!    			DONE - setScale(float scale) in XE_Object2D, 21.08.2014 12:00Uhr
+- Eine Art PolyVector einbauen für zoom... oder zoomImage und rotateImage?!
 - Kollisionserkennung ( AABB-AABB , CIRCLE-CIRCLE, CIRCLE-AABB , COLLISIONRAY?! )
 - XE_Circle ( mit GL_TRIANGLE_FAN -> 2 Colors mit RGBA ! )... Particle möglich!
