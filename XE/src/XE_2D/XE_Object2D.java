@@ -10,9 +10,10 @@ public class XE_Object2D {
 	protected XE_ImageLoader imageloader = null;
 	
 	// set position and size
-	private int posx, posy;
-	protected int width;
+	protected int posx;
 
+	protected int posy;
+	protected int width;
 	protected int height;
 	
 	// Misc. variables
@@ -22,13 +23,13 @@ public class XE_Object2D {
 	protected int listHandle = glGenLists(1);
 	
 	// set default color = White - 100% opaque
-	private XE_Color color = new XE_Color(255, 255, 255, 100);
+	public XE_Color color = new XE_Color(255, 255, 255, 100);
 	
 	// zoomscale to zoom In/Out
 	private float scale = 1f;
 	
 	// rect for collision detection
-	private boolean enableCollision = false;
+	protected boolean enableCollision = false;
 	private XE_CollisionRect rect = new XE_CollisionRect();
 	
 	

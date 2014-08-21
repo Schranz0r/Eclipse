@@ -6,8 +6,10 @@ import org.lwjgl.Sys;
 import org.newdawn.slick.util.Log;
 
 import static org.lwjgl.opengl.GL11.*;
+import XE_2D.XE_Circle;
 import XE_2D.XE_CollisionRect;
 import XE_2D.XE_Image;
+import XE_Core.XE_Color;
 import XE_Core.XE_Display;
 import XE_Core.XE_FPS;
 
@@ -22,6 +24,8 @@ public class game {
 	
 	public static XE_Image img;
 	public static XE_Image img2;
+	
+	public static XE_Circle cir;
 	
 	public static float scale = 1f;
 	
@@ -48,7 +52,7 @@ public class game {
 		XE_Display.setInterval(FRAMERATE);
 		XE_Display.setTitle(TITLE);
 		XE_Display.setIcon("res/icons/icon16.png", "res/icons/icon32.png");
-		
+		XE_CollisionRect.showDebug();
 		
 		
 		img = new XE_Image();
@@ -58,6 +62,13 @@ public class game {
 		img2 = new XE_Image();
 		img2.loadImage("res/icons/icon16.png");
 		img2.enableCollision();
+		
+		cir = new XE_Circle();
+		cir.setCenterColor(new XE_Color(0,0,0,100));
+		cir.setOuterColor(new XE_Color(0, 0, 0, 0));
+		cir.setRadius(25);
+		cir.enableCollision();
+		
 	}
 	
 	public static void run(){
@@ -82,17 +93,11 @@ public class game {
 		img.setScale(scale);
 		img.draw(20, 20);
 		img2.draw(200, 200);
-
 		
-		glBegin(GL_TRIANGLE_FAN);
+		cir.draw(0, 0);
 		
-			glColor3f(0f, 0f, 0f);
-			glVertex2f(100f, 100f);
-			glColor4f(1f, 1f, 1f, .0f);
-			for(int i = 0; i<368; i+=8){
-				glVertex2f(100f+(float)Math.sin(Math.toRadians(i))*20f, 100f+(float)Math.cos(Math.toRadians(i))*20f);
-			}
-		glEnd();
+		if(img.isCollision(cir))
+			Log.debug("HOLY SHIT!");
 		
 	}
 	

@@ -37,6 +37,17 @@ public class XE_Color {
 	public int getB(){
 		return color.getBlue();
 	}
+	
+	public int getRf(){
+		return color.getRed()/255;
+	}
+	public int getGf(){
+		return color.getGreen()/255;
+	}
+	public int getBf(){
+		return color.getBlue()/255;
+	}
+	
 	public int getAlpha(){
 		return (int)(color.a*100f);
 	}

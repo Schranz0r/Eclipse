@@ -1,0 +1,77 @@
+package XE_2D;
+
+import static org.lwjgl.opengl.GL11.*;
+import XE_Core.XE_Color;
+
+public class XE_Circle extends XE_Object2D{
+	
+	private int radius;
+	private XE_Color center_color = new XE_Color();
+	private XE_Color outer_color = new XE_Color();
+	
+	
+	public void setRadius(int radius){
+		this.radius = radius;
+	}
+	
+	public int getRadius() {
+		return radius;
+	}
+
+	public XE_Color getCenterColor() {
+		return center_color;
+	}
+
+	public void setCenterColor(XE_Color center_color) {
+		this.center_color = center_color;
+	}
+
+	public XE_Color getOuterCcolor() {
+		return outer_color;
+	}
+
+	public void setOuterColor(XE_Color outer_color) {
+		this.outer_color = outer_color;
+	}
+
+	@Override
+	public void createListObject(){
+		// create a new List to compile
+		glNewList(listHandle, GL_COMPILE);	
+		glBegin(GL_TRIANGLE_FAN);
+		
+		// centerpoint of the circle
+		glColor4f(center_color.getRf(), center_color.getGf(), center_color.getBf(), center_color.getAlphaf());
+		glVertex2f(0f, 0f);
+		
+		glColor4f(outer_color.getRf(), outer_color.getGf(), outer_color.getBf(), outer_color.getAlphaf());
+		
+			for(int i = 0; i<368; i+=8){
+				glVertex2f((float)Math.sin(Math.toRadians(i))*radius,(float)Math.cos(Math.toRadians(i))*radius);
+			}
+			
+		// end drawing
+		glEnd();
+		
+		// end the list 
+		glEndList();		
+		
+		
+	}
+	
+	@Override
+	public void draw(int x, int y){
+		
+		glBegin(GL_TRIANGLE_FAN);
+		
+		glColor3f(0f, 0f, 0f);
+		glVertex2f(100f, 100f);
+		glColor4f(1f, 1f, 1f, .0f);
+		for(int i = 0; i<368; i+=8){
+			glVertex2f(100f+(float)Math.sin(Math.toRadians(i))*20f, 100f+(float)Math.cos(Math.toRadians(i))*20f);
+		}
+	glEnd();
+		
+	}
+
+}
